@@ -1,2 +1,6 @@
-# Classwork
-Uni Classwork.
+//Create a sphere
+string $sphere[] = `polySphere -r 1 -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1`;
+select $sphere;
+move 0 1 0;
+scale 10 10 10;
+rename $sphere[0] "BigSphere";
