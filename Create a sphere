@@ -5,3 +5,12 @@ move 0 1 0;
 scale 10 10 10;
 rotate 45 0 45;
 rename $sphere[0] "BigSphere";
+
+//Get everything selected
+string $sel[] = `ls - sl`;
+//Create our loop
+for ($each in $sel){
+    //Do something - use $each to identify the objects
+    select $each;
+    move 0 1 0;
+}
