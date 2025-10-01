@@ -11,3 +11,6 @@ print $plate[0];
 int $two = 2; //Assigning a value of 2 to the integer variable.
 int $calc = $two * 10; //Fetching the value stored in the previous variable and multiply it by 10.
 print $calc; //Printing the value of the sum.
+
+string $sel[] = `ls -sl'; //Storing everything currently selected into a variable.
+move 0 2 0 $sel; //Moving all selected objects stored in the variable up on the y-axis.
