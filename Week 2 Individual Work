@@ -5,8 +5,8 @@ print $staff[1];
 
 polyCylinder -radius 10 -name "Cylinder"; //Makes a cylinder and sets its radius and name to 10 and "Cylinder".
 
-string $plate[] = `polyCylinder -name "AnotherCylinder"`; //Makes a cylinder with it's name set to "AnotherCylinder" before printing that name.
-print $plate[0];
+string $cylinder[] = `polyCylinder -name "AnotherCylinder"`; //Makes a cylinder with it's name set to "AnotherCylinder" before printing that name.
+print $cylinder[0];
 
 int $two = 2; //Assigning a value of 2 to the integer variable.
 int $calc = $two * 10; //Fetching the value stored in the previous variable and multiply it by 10.
