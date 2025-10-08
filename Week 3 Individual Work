@@ -1,0 +1,25 @@
+// Car Maker
+
+// Delete any existing window with this name
+if (`window -exists carMaker`) {
+    deleteUI -window carMaker;
+}
+
+// Define a procedure for "createCar"
+global proc polyCube() {
+    // create car
+    string $car[] = `polyCube`;
+    select $car;
+    rename $car[0] "Car";
+    move 0 3.25 0;
+    scale 5 2.5 5;
+    }
+
+// Build the window
+window -title "Car Maker" -widthHeight 200 100 carMaker;
+columnLayout -adjustableColumn true -rowSpacing 10;
+    button -label "Create Car" -command "polyCube()";
+setParent ..;
+
+// Show the window
+showWindow carMaker;
