@@ -1,0 +1,4 @@
+Wheel3.rotateY  = Car.translateZ * -5;
+Wheel4.rotateY  = Car.translateZ * -5;
+Wheel1.rotateX = Steer.rotateZ * -1;
+Wheel2.rotateX = Steer.rotateZ * -1;
