@@ -46,19 +46,30 @@ global proc polyCylinder() {
     rotate 0 0 90;
     }
 
-// Define a procedure for "parentWheels"
+// Define a procedure for "createSteeringWheel"
+global proc polyTorus() {
+    // create steering wheel
+    string $steer[] = `polyTorus`;
+    select $steer;
+    rename $steer[0] "Steering_Wheel";
+    move 0 6 1.5;
+    rotate 90 0 0;
+    }
+
+// Define a procedure for "parentAll"
 global proc parent() {
-    // parent wheels to car
-        select Wheel1 Wheel2 Wheel3 Wheel4 Car;
+    // parent everything to car
+        select Wheel1 Wheel2 Wheel3 Wheel4 Steering_Wheel Car;
         parent;
     }
 
 // Build the window
 window -title "Car Maker" -widthHeight 200 100 carMaker;
-columnLayout -adjustableColumn true -rowSpacing 10;
+columnLayout -adjustableColumn true -rowSpacing 20;
     button -label "Create Car" -command "polyCube()";
     button -label "Create Wheels" -command "polyCylinder()";
-    button -label "Parent Wheels" -command "parent()";
+    button -label "Create Steering Wheel" -command "polyTorus()";
+    button -label "Parent All" -command "parent()";
 setParent ..;
 
 // Show the window
