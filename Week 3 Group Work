@@ -15,10 +15,50 @@ global proc polyCube() {
     scale 5 2.5 5;
     }
 
+// Define a procedure for "createWheels"
+global proc polyCylinder() {
+    // create wheel 1
+    string $wheel1[] = `polyCylinder`;
+    select $wheel1;
+    rename $wheel1[0] "Wheel1";
+    move 1.5 1 1.5;
+    rotate 0 0 90;
+    
+    // create wheel 2
+    string $wheel2[] = `polyCylinder`;
+    select $wheel2;
+    rename $wheel2[0] "Wheel2";
+    move -1.5 1 1.5;
+    rotate 0 0 90;
+    
+    // create wheel 3
+    string $wheel3[] = `polyCylinder`;
+    select $wheel3;
+    rename $wheel3[0] "Wheel3";
+    move 1.5 1 -1.5;
+    rotate 0 0 90;
+    
+    // create wheel 4
+    string $wheel4[] = `polyCylinder`;
+    select $wheel4;
+    rename $wheel4[0] "Wheel4";
+    move -1.5 1 -1.5;
+    rotate 0 0 90;
+    }
+
+// Define a procedure for "parentWheels"
+global proc parent() {
+    // parent wheels to car
+        select Wheel1 Wheel2 Wheel3 Wheel4 Car;
+        parent;
+    }
+
 // Build the window
 window -title "Car Maker" -widthHeight 200 100 carMaker;
 columnLayout -adjustableColumn true -rowSpacing 10;
     button -label "Create Car" -command "polyCube()";
+    button -label "Create Wheels" -command "polyCylinder()";
+    button -label "Parent Wheels" -command "parent()";
 setParent ..;
 
 // Show the window
