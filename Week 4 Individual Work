@@ -1,0 +1,6 @@
+for ($x = 0; $x < 10; $x++) //Create a for loop; loops 10 times.
+{
+    string $sph[] = `polySphere`; //Create a new sphere.
+    select $sph;
+    move  0 ($x * 2) 0; //The y-axis will be whatever x currently is multiplied by 2.
+}
