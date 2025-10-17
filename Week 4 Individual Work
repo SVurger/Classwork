@@ -1,6 +1,38 @@
-for ($x = 0; $x < 10; $x++) //Create a for loop; loops 10 times.
+// Random Object Generator
+
+// Delete any existing window with this name
+if (`window -exists objectMaker`) {
+    deleteUI -window objectMaker;
+}
+
+// Define a procedure for "createObjects"
+global proc polyCube() {
+    for ($x = 0; $x < 5; $x++) //Create a for loop; loops 5 times.
 {
+    int $number = `rand 1 4`; //Generate a random number between 1 and 3.
+    if ($number == 1) { //If statement checking if number generated is equal to 1.
     string $sph[] = `polySphere`; //Create a new sphere.
     select $sph;
-    move  0 ($x * 2) 0; //The y-axis will be whatever x currently is multiplied by 2.
+    move  0 ($x * 3) 0; //The y-axis will be whatever x currently is multiplied by 3.
+    }
+    else if ($number == 2) {
+    string $cube[] = `polyCube`; //Create a new cube.
+    select $cube;
+    move  0 ($x * 3) 0;
+    }
+    else if ($number == 3) {
+    string $cylinder[] = `polyCylinder`; //Create a new cylinder.
+    select $cylinder;
+    move  0 ($x * 3) 0;
+    }
 }
+    }
+
+// Build the window
+window -title "Object Maker" -widthHeight 200 100 objectMaker;
+columnLayout -adjustableColumn true -rowSpacing 20;
+    button -label "Create Objects" -command "polyCube()";
+setParent ..;
+
+// Show the window
+showWindow objectMaker;
