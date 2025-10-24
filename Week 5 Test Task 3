@@ -1,0 +1,13 @@
+//Task 3
+string $sel[] = `ls - sl`;
+delete;
+int $number = rand (1,4);
+    if ($number == 1) {
+    polyCube;
+    }
+    else if ($number == 2) {
+    polySphere;
+    }
+    else if ($number == 3) {
+    polyCylinder;
+    }
