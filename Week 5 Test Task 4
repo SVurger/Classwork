@@ -1,0 +1,5 @@
+//Task 4
+string $circle1[] = `circle`;
+rotate 90 0 0;
+addAttr -longName "objScale" -attributeType "double" -defaultValue 1 -keyable true $circle1[0];
+rename "Control";
