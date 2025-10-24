@@ -1,0 +1,5 @@
+//Task 2
+int $rotateX = rand (0,360);
+int $rotateY = rand (0,360);
+int $rotateZ = rand (0,360);
+rotate -r $rotateX $rotateY $rotateZ;
