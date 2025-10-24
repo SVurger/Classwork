@@ -1,0 +1,14 @@
+//Task 1
+string $dave1[] = `polyCube`;
+select $dave1;
+move 2 2 2;
+
+string $alice1[] = `polySphere`;
+select $alice1;
+move -r 0 1 0;
+group $alice1 $dave1;
+rename "Friends";
+rotate -r 0 90 0;
+
+rename $dave1[0] "Dave";
+rename $alice1[0] "Alice";
