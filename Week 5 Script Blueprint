@@ -1,0 +1,29 @@
+// Script Name:
+City Generator
+
+// Author:
+Rayhaan Hussain
+
+// Version:
+1.0
+
+// Variables:
+String (Text and characters e.g. Buildings).
+Integers (Whole Numbers e.g. Number of objects to generate).
+Floating Point (Decimal Numbers e.g. random generation for translation).
+Boolean (True / False e.g. Trees enabled).
+
+
+// Must do this thing
+Create models and assets that are precoded using mel.
+Must be displayed in a GUI with various buttons the user can interact with.
+Toolbox gui to allow for users to generate and customise individual models.
+Random generation of all models.
+Loop code once a procedure has been finished.
+
+// Should do this thing
+Various animations such as vehicles driving across roads.
+Buttons displaying images of models as a preview.
+
+// Could do this thing
+Enhanced animations such as people walking across roads.
