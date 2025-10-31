@@ -1,0 +1,43 @@
+// City Generator
+
+// Delete any existing window with this name
+if (`window -exists cityGenerator`) {
+    deleteUI -window cityGenerator;
+}
+
+// Define a procedure for "polySphere" (creating a street).
+global proc polySphere() {
+    }
+
+// Define a procedure for "polyCube" (creating a town).
+global proc polyCube() {
+    }
+
+// Define a procedure for "polyCylinder" (creating a city).
+global proc polyCylinder() {
+    }
+
+// Define a procedure for "polyPyramid" (creating a custom environment).
+global proc polyPyramid() {
+    }
+
+// Build the window
+window -title "City Generator" -widthHeight 200 100 cityGenerator;
+columnLayout -adjustableColumn true -rowSpacing 20;
+    text -label "Please select an environment below!";
+    separator -height 10 -style "none";
+    text -label "Create a small street!";
+    button -label "Create Street" -command "polySphere()" -bgc 0 255 0; //Green button for a street.
+    separator -height 10 -style "none";
+    text -label "Create a medium town!";
+    button -label "Create Town" -command "polyCube()" -bgc 255 165 0; //Yellow button for a town.
+    separator -height 10 -style "none";
+    text -label "Create a large city!";
+    button -label "Create City" -command "polyCylinder()" -bgc 255 0 0; //Red button for a city.
+    separator -height 10 -style "none";
+    text -label "Create a custom environment!";
+    button -label "Create Custom Environment" -command "polyPyramid()" -bgc 0.530 0.810 0.920; //Blue button for a custom environment.
+setParent ..;
+
+// Show the window
+showWindow cityGenerator;
