@@ -7,6 +7,41 @@ if (`window -exists cityGenerator`) {
 
 // Define a procedure for "createStreet".
 global proc createStreet() {
+    for ($x = 0; $x < 3; $x++) //Create the road tiles first.
+{
+    string $bt[] = `polyCube`;
+    select $bt;
+    scale 3 0.1 3;
+    move 0 0.1 0;
+    rename "Black_Tile";
+    string $wt[] = `polyCube`;
+    select $wt;
+    scale 0.5 0.1 1;
+    move 0 0.2 0;
+    rename "White_Tile";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0 0 0;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 255 255 255;
+    select Black_Tile;
+    hyperShade -assign $shader;
+    select White_Tile;
+    hyperShade -assign $shader2;
+    select White_Tile Black_Tile;
+    parent;
+    select Black_Tile;
+    rename "B_T";
+    select White_Tile;
+    rename "W_T";
+}
+    select B_T; //Move and line up the road tiles.
+    move 0 0.1 -3;
+    select B_T2;
+    move 0 0.1 3;
     polyCube; //Create each cell, scale them and then move them to the correct position.
     scale 3 0.1 3;
     move -3 0 -3;
@@ -115,7 +150,7 @@ global proc createStreet() {
         move -3 1 -3;
     }
     else if ($x == 1) {
-        move 0 1 -3;
+        delete; //Delete the object if a road tile occupies the cell.
     }
     else if ($x == 2) {
         move 3 1 -3;
@@ -124,7 +159,7 @@ global proc createStreet() {
         move -3 1 0;
     }
     else if ($x == 4) {
-        move 0 1 0;
+        delete;
     }
     else if ($x == 5) {
         move 3 1 0;
@@ -133,7 +168,7 @@ global proc createStreet() {
         move -3 1 3;
     }
     else if ($x == 7) {
-        move 0 1 3;
+        delete;
     }
     else if ($x == 8) {
         move 3 1 3;
@@ -807,24 +842,24 @@ global proc createCity() {
 
 // Define a procedure for "createCustomEnvironment".
 global proc createCustomEnvironment() {
-    string $black_tile[] = `polyCube`; //Create a road.
-    select $black_tile;
+    string $bt[] = `polyCube`;
+    select $bt;
+    scale 3 0.1 3;
     move 0 0.1 0;
-    scale 3 0.1 3
     rename "Black_Tile";
-    string $white_tile[] = `polyCube`;
-    select $white_tile;
-    move 0 0.2 0;
+    string $wt[] = `polyCube`;
+    select $wt;
     scale 0.5 0.1 1;
+    move 0 0.2 0;
     rename "White_Tile";
     string $shader = `shadingNode -asShader lambert`;
     string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
     connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
-    setAttr ($shader + ".color") 0.95 0.95 0.75;
+    setAttr ($shader + ".color") 0 0 0;
     string $shader2 = `shadingNode -asShader lambert`;
     string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
     connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
-    setAttr ($shader2 + ".color") 0.95 0.95 0.75;
+    setAttr ($shader2 + ".color") 255 255 255;
     select Black_Tile;
     hyperShade -assign $shader;
     select White_Tile;
