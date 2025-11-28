@@ -178,6 +178,57 @@ global proc createStreet() {
 
 // Define a procedure for "createTown".
 global proc createTown() {
+    for ($x = 0; $x < 10; $x++)
+{
+    string $bt[] = `polyCube`;
+    select $bt;
+    scale 3 0.1 3;
+    move 0 0.1 0;
+    rename "Black_Tile";
+    string $wt[] = `polyCube`;
+    select $wt;
+    scale 0.5 0.1 1;
+    move 0 0.2 0;
+    rename "White_Tile";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0 0 0;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 255 255 255;
+    select Black_Tile;
+    hyperShade -assign $shader;
+    select White_Tile;
+    hyperShade -assign $shader2;
+    select White_Tile Black_Tile;
+    parent;
+    select Black_Tile;
+    rename "B_T";
+    select White_Tile;
+    rename "W_T";
+}
+    select B_T;
+    move -3 0.1 -6;
+    select B_T1;
+    move -3 0.1 -3;
+    select B_T2;
+    move -3 0.1 0;
+    select B_T3;
+    move -3 0.1 3;
+    select B_T4;
+    move -3 0.1 6;
+    select B_T5;
+    move 3 0.1 -6;
+    select B_T6;
+    move 3 0.1 -3;
+    select B_T7;
+    move 3 0.1 0;
+    select B_T8;
+    move 3 0.1 3;
+    select B_T9;
+    move 3 0.1 6;
     polyCube;
     scale 3 0.1 3;
     move -6 0 -6;
@@ -350,13 +401,13 @@ global proc createTown() {
         move -6 1 -6;
     }
     else if ($x == 1) {
-        move -3 1 -6;
+        delete;
     }
     else if ($x == 2) {
         move 0 1 -6;
     }
     else if ($x == 3) {
-        move 3 1 -6;
+        delete;
     }
     else if ($x == 4) {
         move 6 1 -6;
@@ -365,13 +416,13 @@ global proc createTown() {
         move -6 1 -3;
     }
     else if ($x == 6) {
-        move -3 1 -3;
+        delete;
     }
     else if ($x == 7) {
         move 0 1 -3;
     }
     else if ($x == 8) {
-        move 3 1 -3;
+        delete;
     }
     else if ($x == 9) {
         move 6 1 -3;
@@ -380,13 +431,13 @@ global proc createTown() {
         move -6 1 0;
     }
     else if ($x == 11) {
-        move -3 1 0;
+        delete;
     }
     else if ($x == 12) {
         move 0 1 0;
     }
     else if ($x == 13) {
-        move 3 1 0;
+        delete;
     }
     else if ($x == 14) {
         move 6 1 0;
@@ -395,13 +446,13 @@ global proc createTown() {
         move -6 1 3;
     }
     else if ($x == 16) {
-        move -3 1 3;
+        delete;
     }
     else if ($x == 17) {
         move 0 1 3;
     }
     else if ($x == 18) {
-        move 3 1 3;
+        delete;
     }
     else if ($x == 19) {
         move 6 1 3;
@@ -410,13 +461,13 @@ global proc createTown() {
         move -6 1 6;
     }
     else if ($x == 21) {
-        move -3 1 6;
+        delete;
     }
     else if ($x == 22) {
         move 0 1 6;
     }
     else if ($x == 23) {
-        move 3 1 6;
+        delete;
     }
     else if ($x == 24) {
         move 6 1 6;
@@ -426,6 +477,79 @@ global proc createTown() {
 
 // Define a procedure for "createCity".
 global proc createCity() {
+    for ($x = 0; $x < 21; $x++)
+{
+    string $bt[] = `polyCube`;
+    select $bt;
+    scale 3 0.1 3;
+    move 0 0.1 0;
+    rename "Black_Tile";
+    string $wt[] = `polyCube`;
+    select $wt;
+    scale 0.5 0.1 1;
+    move 0 0.2 0;
+    rename "White_Tile";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0 0 0;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 255 255 255;
+    select Black_Tile;
+    hyperShade -assign $shader;
+    select White_Tile;
+    hyperShade -assign $shader2;
+    select White_Tile Black_Tile;
+    parent;
+    select Black_Tile;
+    rename "B_T";
+    select White_Tile;
+    rename "W_T";
+}
+    select B_T;
+    move -6 0.1 -9;
+    select B_T1;
+    move -6 0.1 -6;
+    select B_T2;
+    move -6 0.1 -3;
+    select B_T3;
+    move -6 0.1 0;
+    select B_T4;
+    move -6 0.1 3;
+    select B_T5;
+    move -6 0.1 6;
+    select B_T6;
+    move -6 0.1 9;
+    select B_T7;
+    move 0 0.1 -9;
+    select B_T8;
+    move 0 0.1 -6;
+    select B_T9;
+    move 0 0.1 -3;
+    select B_T10;
+    move 0 0.1 0;
+    select B_T11;
+    move 0 0.1 3;
+    select B_T12;
+    move 0 0.1 6;
+    select B_T13;
+    move 0 0.1 9;
+    select B_T14;
+    move 6 0.1 -9;
+    select B_T15;
+    move 6 0.1 -6;
+    select B_T16;
+    move 6 0.1 -3;
+    select B_T17;
+    move 6 0.1 -0;
+    select B_T18;
+    move 6 0.1 3;
+    select B_T19;
+    move 6 0.1 6;
+    select B_T20;
+    move 6 0.1 9;
     polyCube;
     scale 3 0.1 3;
     move -9 0 -9;
@@ -694,19 +818,19 @@ global proc createCity() {
         move -9 1 -9;
     }
     else if ($x == 1) {
-        move -6 1 -9;
+        delete;
     }
     else if ($x == 2) {
         move -3 1 -9;
     }
     else if ($x == 3) {
-        move 0 1 -9;
+        delete;
     }
     else if ($x == 4) {
         move 3 1 -9;
     }
     else if ($x == 5) {
-        move 6 1 -9;
+        delete;
     }
     else if ($x == 6) {
         move 9 1 -9;
@@ -715,19 +839,19 @@ global proc createCity() {
         move -9 1 -6;
     }
     else if ($x == 8) {
-        move -6 1 -6;
+        delete;
     }
     else if ($x == 9) {
         move -3 1 -6;
     }
     else if ($x == 10) {
-        move 0 1 -6;
+        delete;
     }
     else if ($x == 11) {
         move 3 1 -6;
     }
     else if ($x == 12) {
-        move 6 1 -6;
+        delete;
     }
     else if ($x == 13) {
         move 9 1 -6;
@@ -736,19 +860,19 @@ global proc createCity() {
         move -9 1 -3;
     }
     else if ($x == 15) {
-        move -6 1 -3;
+        delete;
     }
     else if ($x == 16) {
         move -3 1 -3;
     }
     else if ($x == 17) {
-        move 0 1 -3;
+        delete;
     }
     else if ($x == 18) {
         move 3 1 -3;
     }
     else if ($x == 19) {
-        move 6 1 -3;
+        delete;
     }
     else if ($x == 20) {
         move 9 1 -3;
@@ -757,19 +881,19 @@ global proc createCity() {
         move -9 1 0;
     }
     else if ($x == 22) {
-        move -6 1 0;
+        delete;
     }
     else if ($x == 23) {
         move -3 1 0;
     }
     else if ($x == 24) {
-        move 0 1 0;
+        delete;
     }
     else if ($x == 25) {
         move 3 1 0;
     }
     else if ($x == 26) {
-        move 6 1 0;
+        delete;
     }
     else if ($x == 27) {
         move 9 1 0;
@@ -778,19 +902,19 @@ global proc createCity() {
         move -9 1 3;
     }
     else if ($x == 29) {
-        move -6 1 3;
+        delete;
     }
     else if ($x == 30) {
         move -3 1 3;
     }
     else if ($x == 31) {
-        move 0 1 3;
+        delete;
     }
     else if ($x == 32) {
         move 3 1 3;
     }
     else if ($x == 33) {
-        move 6 1 3;
+        delete;
     }
     else if ($x == 34) {
         move 9 1 3;
@@ -799,19 +923,19 @@ global proc createCity() {
         move -9 1 6;
     }
     else if ($x == 36) {
-        move -6 1 6;
+        delete;
     }
     else if ($x == 37) {
         move -3 1 6;
     }
     else if ($x == 38) {
-        move 0 1 6;
+        delete;
     }
     else if ($x == 39) {
         move 3 1 6;
     }
     else if ($x == 40) {
-        move 6 1 6;
+        delete;
     }
     else if ($x == 41) {
         move 9 1 6;
@@ -820,19 +944,19 @@ global proc createCity() {
         move -9 1 9;
     }
     else if ($x == 43) {
-        move -6 1 9;
+        delete;
     }
     else if ($x == 44) {
         move -3 1 9;
     }
     else if ($x == 45) {
-        move 0 1 9;
+        delete;
     }
     else if ($x == 46) {
         move 3 1 9;
     }
     else if ($x == 47) {
-        move 6 1 9;
+        delete;
     }
     else if ($x == 48) {
         move 9 1 9;
