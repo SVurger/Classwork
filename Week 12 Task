@@ -1283,7 +1283,19 @@ global proc createStickman() {
     string $shader = `shadingNode -asShader lambert`;
     string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
     connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
-    setAttr ($shader + ".color") 0.95 0.95 0.75;
+    string $inputText = `textField -query -text textField1`; //Obtain the value in the custom textbox.
+    if ($inputText == "Red") {
+        setAttr ($shader + ".color") 1 0 0;
+    }
+    else if ($inputText == "Green") {
+        setAttr ($shader + ".color") 0 1 0;
+    }
+    else if ($inputText == "Blue") {
+        setAttr ($shader + ".color") 0 0 1;
+    }
+    else {
+        setAttr ($shader + ".color") 0.95 0.95 0.75;
+    }
     select Left_Arm Right_Arm Left_Leg Right_Leg Torso Head;
     hyperShade -assign $shader;
     parent;
@@ -1306,61 +1318,189 @@ global proc createStickman() {
 
 //Define a procedure for "createHouse".
 global proc createHouse() {
-    string $base[] = `polyCube`;
-    select $base;
-    scale 10 15 10;
-    move 0 7.5 0;
-    rename "Base";
-    string $window1[] = `polyCube`;
-    select $window1;
-    scale 5 5 0.5;
-    move 0 10 5.3;
-    rename "Window1";
-    string $window2[] = `polyCube`;
-    select $window2;
-    scale 5 5 0.5;
-    move -5.3 10 0;
-    rotate 0 90 0;
-    rename "Window2";
-    string $window3[] = `polyCube`;
-    select $window3;
-    scale 5 5 0.5;
-    move 0 10 -5.3;
-    rename "Window3";
-    string $window4[] = `polyCube`;
-    select $window4;
-    scale 5 5 0.5;
-    move 5.3 10 0;
-    rotate 0 90 0;
-    rename "Window4";
-    string $shader = `shadingNode -asShader lambert`;
-    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
-    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
-    setAttr ($shader + ".color") 1 0.7 0.5;
-    string $shader2 = `shadingNode -asShader lambert`;
-    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
-    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
-    setAttr ($shader2 + ".color") 0 1 1;
-    select Base;
-    hyperShade -assign $shader;
-    select Window1 Window2 Window3 Window4;
-    hyperShade -assign $shader2;
-    select Window1 Window2 Window3 Window4 Base;
-    parent;
-    select Base;
-    move 0 2.1 0;
-    scale 2.5 4 2.5;
-    makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
-    select Window1;
-    rename "W_1";
-    select Window2;
-    rename "W_2";
-    select Window3;
-    rename "W_3";
-    select Window4;
-    rename "W_4";
-    select Base;
-    rename "House";
+    string $inputText = `textField -query -text textField2`;
+    if ($inputText == "1") {
+        string $base[] = `polyCube`;
+        select $base;
+        scale 10 15 10;
+        move 0 7.5 0;
+        rename "Base";
+        string $window1[] = `polyCube`;
+        select $window1;
+        scale 5 5 0.5;
+        move 0 10 5.3;
+        rename "Window1";
+        string $shader = `shadingNode -asShader lambert`;
+        string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+        connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+        setAttr ($shader + ".color") 1 0.7 0.5;
+        string $shader2 = `shadingNode -asShader lambert`;
+        string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+        connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+        setAttr ($shader2 + ".color") 0 1 1;
+        select Base;
+        hyperShade -assign $shader;
+        select Window1;
+        hyperShade -assign $shader2;
+        select Window1 Base;
+        parent;
+        select Base;
+        move 0 2.1 0;
+        scale 2.5 4 2.5;
+        makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
+        select Window1;
+        rename "W_1";
+        select Base;
+        rename "House";
+    }
+    else if ($inputText == "2") {
+        string $base[] = `polyCube`;
+        select $base;
+        scale 10 15 10;
+        move 0 7.5 0;
+        rename "Base";
+        string $window1[] = `polyCube`;
+        select $window1;
+        scale 5 5 0.5;
+        move 0 10 5.3;
+        rename "Window1";
+        string $window2[] = `polyCube`;
+        select $window2;
+        scale 5 5 0.5;
+        move -5.3 10 0;
+        rotate 0 90 0;
+        rename "Window2";
+        string $shader = `shadingNode -asShader lambert`;
+        string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+        connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+        setAttr ($shader + ".color") 1 0.7 0.5;
+        string $shader2 = `shadingNode -asShader lambert`;
+        string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+        connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+        setAttr ($shader2 + ".color") 0 1 1;
+        select Base;
+        hyperShade -assign $shader;
+        select Window1 Window2;
+        hyperShade -assign $shader2;
+        select Window1 Window2 Base;
+        parent;
+        select Base;
+        move 0 2.1 0;
+        scale 2.5 4 2.5;
+        makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
+        select Window1;
+        rename "W_1";
+        select Window2;
+        rename "W_2";
+        select Base;
+        rename "House";
+    }
+    else if ($inputText == "3") {
+        string $base[] = `polyCube`;
+        select $base;
+        scale 10 15 10;
+        move 0 7.5 0;
+        rename "Base";
+        string $window1[] = `polyCube`;
+        select $window1;
+        scale 5 5 0.5;
+        move 0 10 5.3;
+        rename "Window1";
+        string $window2[] = `polyCube`;
+        select $window2;
+        scale 5 5 0.5;
+        move -5.3 10 0;
+        rotate 0 90 0;
+        rename "Window2";
+        string $window3[] = `polyCube`;
+        select $window3;
+        scale 5 5 0.5;
+        move 0 10 -5.3;
+        rename "Window3";
+        string $shader = `shadingNode -asShader lambert`;
+        string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+        connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+        setAttr ($shader + ".color") 1 0.7 0.5;
+        string $shader2 = `shadingNode -asShader lambert`;
+        string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+        connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+        setAttr ($shader2 + ".color") 0 1 1;
+        select Base;
+        hyperShade -assign $shader;
+        select Window1 Window2 Window3;
+        hyperShade -assign $shader2;
+        select Window1 Window2 Window3 Base;
+        parent;
+        select Base;
+        move 0 2.1 0;
+        scale 2.5 4 2.5;
+        makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
+        select Window1;
+        rename "W_1";
+        select Window2;
+        rename "W_2";
+        select Window3;
+        rename "W_3";
+        select Base;
+        rename "House";
+    }
+    else {
+        string $base[] = `polyCube`;
+        select $base;
+        scale 10 15 10;
+        move 0 7.5 0;
+        rename "Base";
+        string $window1[] = `polyCube`;
+        select $window1;
+        scale 5 5 0.5;
+        move 0 10 5.3;
+        rename "Window1";
+        string $window2[] = `polyCube`;
+        select $window2;
+        scale 5 5 0.5;
+        move -5.3 10 0;
+        rotate 0 90 0;
+        rename "Window2";
+        string $window3[] = `polyCube`;
+        select $window3;
+        scale 5 5 0.5;
+        move 0 10 -5.3;
+        rename "Window3";
+        string $window4[] = `polyCube`;
+        select $window4;
+        scale 5 5 0.5;
+        move 5.3 10 0;
+        rotate 0 90 0;
+        rename "Window4";
+        string $shader = `shadingNode -asShader lambert`;
+        string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+        connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+        setAttr ($shader + ".color") 1 0.7 0.5;
+        string $shader2 = `shadingNode -asShader lambert`;
+        string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+        connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+        setAttr ($shader2 + ".color") 0 1 1;
+        select Base;
+        hyperShade -assign $shader;
+        select Window1 Window2 Window3 Window4;
+        hyperShade -assign $shader2;
+        select Window1 Window2 Window3 Window4 Base;
+        parent;
+        select Base;
+        move 0 2.1 0;
+        scale 2.5 4 2.5;
+        makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
+        select Window1;
+        rename "W_1";
+        select Window2;
+        rename "W_2";
+        select Window3;
+        rename "W_3";
+        select Window4;
+        rename "W_4";
+        select Base;
+        rename "House";
+    }
     }
 
 //Define a procedure for "createTree".
@@ -1378,7 +1518,19 @@ global proc createTree() {
     string $shader = `shadingNode -asShader lambert`;
     string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
     connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
-    setAttr ($shader + ".color") 0 1 0;
+    string $inputText = `textField -query -text textField3`;
+    if ($inputText == "Orange") {
+        setAttr ($shader + ".color") 1 0.3 0;
+    }
+    else if ($inputText == "Yellow") {
+        setAttr ($shader + ".color") 1 0.9 0;
+    }
+    else if ($inputText == "Pink") {
+        setAttr ($shader + ".color") 1 0.7 0.8;
+    }
+    else {
+        setAttr ($shader + ".color") 0 1 0;
+    }
     string $shader2 = `shadingNode -asShader lambert`;
     string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
     connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
@@ -1416,8 +1568,14 @@ columnLayout -adjustableColumn true -rowSpacing 20;
     text -label "Create individual assets!";
     button -label "Create Road" -command "createRoad()" -bgc 0.530 0.810 0.920; //Blue buttons for individual assets.
     button -label "Create Stickman" -command "createStickman()" -bgc 0.530 0.810 0.920;
+    text -label "Stickman colour (Red/Green/Blue):";
+    textField -width 250 textField1;
     button -label "Create House" -command "createHouse()" -bgc 0.530 0.810 0.920;
+    text -label "House window number (1/2/3):";
+    textField -width 250 textField2;
     button -label "Create Tree" -command "createTree()" -bgc 0.530 0.810 0.920;
+    text -label "Tree colour (Orange/Yellow/Pink):";
+    textField -width 250 textField3;
 setParent ..;
 
 //Show the window
