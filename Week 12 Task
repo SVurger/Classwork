@@ -1,0 +1,1424 @@
+//City Generator
+
+//Delete any existing window with this name
+if (`window -exists cityGenerator`) {
+    deleteUI -window cityGenerator;
+}
+
+//Define a procedure for "createStreet".
+global proc createStreet() {
+    for ($x = 0; $x < 3; $x++) //Create the road tiles first.
+{
+    string $bt[] = `polyCube`;
+    select $bt;
+    scale 3 0.1 3;
+    move 0 0.1 0;
+    rename "Black_Tile";
+    string $wt[] = `polyCube`;
+    select $wt;
+    scale 0.5 0.1 1;
+    move 0 0.2 0;
+    rename "White_Tile";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0 0 0;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 255 255 255;
+    select Black_Tile;
+    hyperShade -assign $shader;
+    select White_Tile;
+    hyperShade -assign $shader2;
+    select White_Tile Black_Tile;
+    parent;
+    select Black_Tile;
+    rename "B_T";
+    select White_Tile;
+    rename "W_T";
+}
+    select B_T; //Move and line up the road tiles.
+    move 0 0.1 -3;
+    select B_T2;
+    move 0 0.1 3;
+    polyCube; //Create each cell, scale them and then move them to the correct position.
+    scale 3 0.1 3;
+    move -3 0 -3;
+    rename "Cell1";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 -3;
+    rename "Cell2";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 -3;
+    rename "Cell3";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 0;
+    rename "Cell4";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 0;
+    rename "Cell5";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 0;
+    rename "Cell6";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 3;
+    rename "Cell7";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 3;
+    rename "Cell8";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 3;
+    rename "Cell9";
+    for ($x = 0; $x < 9; $x++) //Create a for loop; loops 9 times.
+{
+    int $number = `rand 1 4`; //Generate a random number between 1 and 3.
+    if ($number == 1) { //If statement checking if number generated is equal to 1.
+    string $head[] = `polySphere`; //Create a stickman.
+    select $head;
+    move 0 5 0;
+    rename "Head";
+    string $torso[] = `polyCylinder`;
+    select $torso;
+    move 0 3 0;
+    scale 0.25 1 0.25;
+    rename "Torso";
+    string $left_arm[] = `polyCylinder`;
+    select $left_arm;
+    move -0.75 2.5 0;
+    rotate 0 0 -20;
+    scale 0.25 1 0.25;
+    rename "Left_Arm";
+    string $right_arm[] = `polyCylinder`;
+    select $right_arm;
+    move 0.75 2.5 0;
+    rotate 0 0 20;
+    scale 0.25 1 0.25;
+    rename "Right_Arm";
+    string $left_leg[] = `polyCylinder`;
+    select $left_leg;
+    move -0.5 1 0;
+    rotate 0 0 -20;
+    scale 0.25 1 0.25;
+    rename "Left_Leg";
+    string $right_leg[] = `polyCylinder`;
+    select $right_leg;
+    move 0.5 1 0;
+    rotate 0 0 20;
+    scale 0.25 1 0.25;
+    rename "Right_Leg";
+    string $shader = `shadingNode -asShader lambert`; //Create a shader.
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`; //Create a shading group.
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0.95 0.95 0.75; //Set the color of the shader to beige.
+    select Left_Arm Right_Arm Left_Leg Right_Leg Torso Head;
+    hyperShade -assign $shader; //Apply the shader to the objects.
+    parent;
+    select Head;
+    move 0 1 0;
+    scale 0.19 0.19 0.19;
+    select Left_Arm;
+    rename "L_A";
+    select Right_Arm;
+    rename "R_A";
+    select Left_Leg;
+    rename "L_L";
+    select Right_Leg;
+    rename "R_L";
+    select Torso;
+    rename "T";
+    select Head;
+    rename "H";
+    }
+    else if ($number == 2) {
+    string $base[] = `polyCube`; //Create a house.
+    select $base;
+    scale 10 15 10;
+    move 0 7.5 0;
+    rename "Base";
+    string $window1[] = `polyCube`;
+    select $window1;
+    scale 5 5 0.5;
+    move 0 10 5.3;
+    rename "Window1";
+    string $window2[] = `polyCube`;
+    select $window2;
+    scale 5 5 0.5;
+    move -5.3 10 0;
+    rotate 0 90 0;
+    rename "Window2";
+    string $window3[] = `polyCube`;
+    select $window3;
+    scale 5 5 0.5;
+    move 0 10 -5.3;
+    rename "Window3";
+    string $window4[] = `polyCube`;
+    select $window4;
+    scale 5 5 0.5;
+    move 5.3 10 0;
+    rotate 0 90 0;
+    rename "Window4";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 1 0.7 0.5;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 0 1 1;
+    select Base;
+    hyperShade -assign $shader;
+    select Window1 Window2 Window3 Window4;
+    hyperShade -assign $shader2;
+    select Window1 Window2 Window3 Window4 Base;
+    parent;
+    select Base;
+    move 0 1.1 0;
+    scale 2.5 4 2.5;
+    makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
+    select Window1;
+    rename "W_1";
+    select Window2;
+    rename "W_2";
+    select Window3;
+    rename "W_3";
+    select Window4;
+    rename "W_4";
+    select Base;
+    rename "House";
+    }
+    else if ($number == 3) {
+    string $top[] = `polySphere`; //Create a tree.
+    select $top;
+    scale 3 3 3;
+    move 0 10 0;
+    rename "Top";
+    string $bottom[] = `polyCylinder`;
+    select $bottom;
+    scale 1 4 1;
+    move 0 4 0;
+    rename "Bottom";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0 1 0;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 0.1 0 0;
+    select Top;
+    hyperShade -assign $shader;
+    select Bottom;
+    hyperShade -assign $shader2;
+    select Bottom Top;
+    parent;
+    select Top;
+    move 0 2.4 0;
+    scale 1 1 1;
+    makeIdentity -apply true -t 1 -r 1 -s 1 -n 0; //Freeze transformations.
+    select Bottom;
+    rename "Trunk";
+    select Top;
+    rename "Leaves";
+    }
+    if ($x == 0) { //Move each shape to the correct cell.
+        move -3 1 -3;
+    }
+    else if ($x == 1) {
+        delete; //Delete the object if a road tile occupies the cell.
+    }
+    else if ($x == 2) {
+        move 3 1 -3;
+    }
+    else if ($x == 3) {
+        move -3 1 0;
+    }
+    else if ($x == 4) {
+        delete;
+    }
+    else if ($x == 5) {
+        move 3 1 0;
+    }
+    else if ($x == 6) {
+        move -3 1 3;
+    }
+    else if ($x == 7) {
+        delete;
+    }
+    else if ($x == 8) {
+        move 3 1 3;
+    }
+}
+    }
+
+//Define a procedure for "createTown".
+global proc createTown() {
+    for ($x = 0; $x < 10; $x++)
+{
+    string $bt[] = `polyCube`;
+    select $bt;
+    scale 3 0.1 3;
+    move 0 0.1 0;
+    rename "Black_Tile";
+    string $wt[] = `polyCube`;
+    select $wt;
+    scale 0.5 0.1 1;
+    move 0 0.2 0;
+    rename "White_Tile";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0 0 0;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 255 255 255;
+    select Black_Tile;
+    hyperShade -assign $shader;
+    select White_Tile;
+    hyperShade -assign $shader2;
+    select White_Tile Black_Tile;
+    parent;
+    select Black_Tile;
+    rename "B_T";
+    select White_Tile;
+    rename "W_T";
+}
+    select B_T;
+    move -3 0.1 -6;
+    select B_T1;
+    move -3 0.1 -3;
+    select B_T2;
+    move -3 0.1 0;
+    select B_T3;
+    move -3 0.1 3;
+    select B_T4;
+    move -3 0.1 6;
+    select B_T5;
+    move 3 0.1 -6;
+    select B_T6;
+    move 3 0.1 -3;
+    select B_T7;
+    move 3 0.1 0;
+    select B_T8;
+    move 3 0.1 3;
+    select B_T9;
+    move 3 0.1 6;
+    polyCube;
+    scale 3 0.1 3;
+    move -6 0 -6;
+    rename "Cell1";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 -6;
+    rename "Cell2";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 -6;
+    rename "Cell3";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 -6;
+    rename "Cell4";
+    polyCube;
+    scale 3 0.1 3;
+    move 6 0 -6;
+    rename "Cell5";
+    polyCube;
+    scale 3 0.1 3;
+    move -6 0 -3;
+    rename "Cell6";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 -3;
+    rename "Cell7";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 -3;
+    rename "Cell8";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 -3;
+    rename "Cell9";
+    polyCube;
+    scale 3 0.1 3;
+    move 6 0 -3;
+    rename "Cell10";
+    polyCube;
+    scale 3 0.1 3;
+    move -6 0 0;
+    rename "Cell11";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 0;
+    rename "Cell12";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 0;
+    rename "Cell13";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 0;
+    rename "Cell14";
+    polyCube;
+    scale 3 0.1 3;
+    move 6 0 0;
+    rename "Cell15";
+    polyCube;
+    scale 3 0.1 3;
+    move -6 0 3;
+    rename "Cell16";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 3;
+    rename "Cell17";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 3;
+    rename "Cell18";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 3;
+    rename "Cell19";
+    polyCube;
+    scale 3 0.1 3;
+    move 6 0 3;
+    rename "Cell20";
+    polyCube;
+    scale 3 0.1 3;
+    move -6 0 6;
+    rename "Cell21";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 6;
+    rename "Cell22";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 6;
+    rename "Cell23";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 6;
+    rename "Cell24";
+    polyCube;
+    scale 3 0.1 3;
+    move 6 0 6;
+    rename "Cell25";
+    for ($x = 0; $x < 25; $x++)
+{
+    int $number = `rand 1 4`;
+    if ($number == 1) {
+    string $head[] = `polySphere`;
+    select $head;
+    move 0 5 0;
+    rename "Head";
+    string $torso[] = `polyCylinder`;
+    select $torso;
+    move 0 3 0;
+    scale 0.25 1 0.25;
+    rename "Torso";
+    string $left_arm[] = `polyCylinder`;
+    select $left_arm;
+    move -0.75 2.5 0;
+    rotate 0 0 -20;
+    scale 0.25 1 0.25;
+    rename "Left_Arm";
+    string $right_arm[] = `polyCylinder`;
+    select $right_arm;
+    move 0.75 2.5 0;
+    rotate 0 0 20;
+    scale 0.25 1 0.25;
+    rename "Right_Arm";
+    string $left_leg[] = `polyCylinder`;
+    select $left_leg;
+    move -0.5 1 0;
+    rotate 0 0 -20;
+    scale 0.25 1 0.25;
+    rename "Left_Leg";
+    string $right_leg[] = `polyCylinder`;
+    select $right_leg;
+    move 0.5 1 0;
+    rotate 0 0 20;
+    scale 0.25 1 0.25;
+    rename "Right_Leg";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0.95 0.95 0.75;
+    select Left_Arm Right_Arm Left_Leg Right_Leg Torso Head;
+    hyperShade -assign $shader;
+    parent;
+    select Head;
+    move 0 1 0;
+    scale 0.19 0.19 0.19;
+    select Left_Arm;
+    rename "L_A";
+    select Right_Arm;
+    rename "R_A";
+    select Left_Leg;
+    rename "L_L";
+    select Right_Leg;
+    rename "R_L";
+    select Torso;
+    rename "T";
+    select Head;
+    rename "H";
+    }
+    else if ($number == 2) {
+    string $base[] = `polyCube`;
+    select $base;
+    scale 10 15 10;
+    move 0 7.5 0;
+    rename "Base";
+    string $window1[] = `polyCube`;
+    select $window1;
+    scale 5 5 0.5;
+    move 0 10 5.3;
+    rename "Window1";
+    string $window2[] = `polyCube`;
+    select $window2;
+    scale 5 5 0.5;
+    move -5.3 10 0;
+    rotate 0 90 0;
+    rename "Window2";
+    string $window3[] = `polyCube`;
+    select $window3;
+    scale 5 5 0.5;
+    move 0 10 -5.3;
+    rename "Window3";
+    string $window4[] = `polyCube`;
+    select $window4;
+    scale 5 5 0.5;
+    move 5.3 10 0;
+    rotate 0 90 0;
+    rename "Window4";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 1 0.7 0.5;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 0 1 1;
+    select Base;
+    hyperShade -assign $shader;
+    select Window1 Window2 Window3 Window4;
+    hyperShade -assign $shader2;
+    select Window1 Window2 Window3 Window4 Base;
+    parent;
+    select Base;
+    move 0 1.1 0;
+    scale 2.5 4 2.5;
+    makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
+    select Window1;
+    rename "W_1";
+    select Window2;
+    rename "W_2";
+    select Window3;
+    rename "W_3";
+    select Window4;
+    rename "W_4";
+    select Base;
+    rename "House";
+    }
+    else if ($number == 3) {
+    string $top[] = `polySphere`;
+    select $top;
+    scale 3 3 3;
+    move 0 10 0;
+    rename "Top";
+    string $bottom[] = `polyCylinder`;
+    select $bottom;
+    scale 1 4 1;
+    move 0 4 0;
+    rename "Bottom";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0 1 0;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 0.1 0 0;
+    select Top;
+    hyperShade -assign $shader;
+    select Bottom;
+    hyperShade -assign $shader2;
+    select Bottom Top;
+    parent;
+    select Top;
+    move 0 2.4 0;
+    scale 1 1 1;
+    makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
+    select Bottom;
+    rename "Trunk";
+    select Top;
+    rename "Leaves";
+    }
+    if ($x == 0) {
+        move -6 1 -6;
+    }
+    else if ($x == 1) {
+        delete;
+    }
+    else if ($x == 2) {
+        move 0 1 -6;
+    }
+    else if ($x == 3) {
+        delete;
+    }
+    else if ($x == 4) {
+        move 6 1 -6;
+    }
+    else if ($x == 5) {
+        move -6 1 -3;
+    }
+    else if ($x == 6) {
+        delete;
+    }
+    else if ($x == 7) {
+        move 0 1 -3;
+    }
+    else if ($x == 8) {
+        delete;
+    }
+    else if ($x == 9) {
+        move 6 1 -3;
+    }
+    else if ($x == 10) {
+        move -6 1 0;
+    }
+    else if ($x == 11) {
+        delete;
+    }
+    else if ($x == 12) {
+        move 0 1 0;
+    }
+    else if ($x == 13) {
+        delete;
+    }
+    else if ($x == 14) {
+        move 6 1 0;
+    }
+    else if ($x == 15) {
+        move -6 1 3;
+    }
+    else if ($x == 16) {
+        delete;
+    }
+    else if ($x == 17) {
+        move 0 1 3;
+    }
+    else if ($x == 18) {
+        delete;
+    }
+    else if ($x == 19) {
+        move 6 1 3;
+    }
+    else if ($x == 20) {
+        move -6 1 6;
+    }
+    else if ($x == 21) {
+        delete;
+    }
+    else if ($x == 22) {
+        move 0 1 6;
+    }
+    else if ($x == 23) {
+        delete;
+    }
+    else if ($x == 24) {
+        move 6 1 6;
+    }
+}
+    }
+
+//Define a procedure for "createCity".
+global proc createCity() {
+    for ($x = 0; $x < 21; $x++)
+{
+    string $bt[] = `polyCube`;
+    select $bt;
+    scale 3 0.1 3;
+    move 0 0.1 0;
+    rename "Black_Tile";
+    string $wt[] = `polyCube`;
+    select $wt;
+    scale 0.5 0.1 1;
+    move 0 0.2 0;
+    rename "White_Tile";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0 0 0;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 255 255 255;
+    select Black_Tile;
+    hyperShade -assign $shader;
+    select White_Tile;
+    hyperShade -assign $shader2;
+    select White_Tile Black_Tile;
+    parent;
+    select Black_Tile;
+    rename "B_T";
+    select White_Tile;
+    rename "W_T";
+}
+    select B_T;
+    move -6 0.1 -9;
+    select B_T1;
+    move -6 0.1 -6;
+    select B_T2;
+    move -6 0.1 -3;
+    select B_T3;
+    move -6 0.1 0;
+    select B_T4;
+    move -6 0.1 3;
+    select B_T5;
+    move -6 0.1 6;
+    select B_T6;
+    move -6 0.1 9;
+    select B_T7;
+    move 0 0.1 -9;
+    select B_T8;
+    move 0 0.1 -6;
+    select B_T9;
+    move 0 0.1 -3;
+    select B_T10;
+    move 0 0.1 0;
+    select B_T11;
+    move 0 0.1 3;
+    select B_T12;
+    move 0 0.1 6;
+    select B_T13;
+    move 0 0.1 9;
+    select B_T14;
+    move 6 0.1 -9;
+    select B_T15;
+    move 6 0.1 -6;
+    select B_T16;
+    move 6 0.1 -3;
+    select B_T17;
+    move 6 0.1 -0;
+    select B_T18;
+    move 6 0.1 3;
+    select B_T19;
+    move 6 0.1 6;
+    select B_T20;
+    move 6 0.1 9;
+    polyCube;
+    scale 3 0.1 3;
+    move -9 0 -9;
+    rename "Cell1";
+    polyCube;
+    scale 3 0.1 3;
+    move -6 0 -9;
+    rename "Cell2";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 -9;
+    rename "Cell3";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 -9;
+    rename "Cell4";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 -9;
+    rename "Cell5";
+    polyCube;
+    scale 3 0.1 3;
+    move 6 0 -9;
+    rename "Cell6";
+    polyCube;
+    scale 3 0.1 3;
+    move 9 0 -9;
+    rename "Cell7";
+    polyCube;
+    scale 3 0.1 3;
+    move -9 0 -6;
+    rename "Cell8";
+    polyCube;
+    scale 3 0.1 3;
+    move -6 0 -6;
+    rename "Cell9";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 -6;
+    rename "Cell10";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 -6;
+    rename "Cell11";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 -6;
+    rename "Cell12";
+    polyCube;
+    scale 3 0.1 3;
+    move 6 0 -6;
+    rename "Cell13";
+    polyCube;
+    scale 3 0.1 3;
+    move 9 0 -6;
+    rename "Cell14";
+    polyCube;
+    scale 3 0.1 3;
+    move -9 0 -3;
+    rename "Cell15";
+    polyCube;
+    scale 3 0.1 3;
+    move -6 0 -3;
+    rename "Cell16";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 -3;
+    rename "Cell17";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 -3;
+    rename "Cell18";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 -3;
+    rename "Cell19";
+    polyCube;
+    scale 3 0.1 3;
+    move 6 0 -3;
+    rename "Cell20";
+    polyCube;
+    scale 3 0.1 3;
+    move 9 0 -3;
+    rename "Cell21";
+    polyCube;
+    scale 3 0.1 3;
+    move -9 0 0;
+    rename "Cell22";
+    polyCube;
+    scale 3 0.1 3;
+    move -6 0 0;
+    rename "Cell23";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 0;
+    rename "Cell24";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 0;
+    rename "Cell25";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 0;
+    rename "Cell26";
+    polyCube;
+    scale 3 0.1 3;
+    move 6 0 0;
+    rename "Cell27";
+    polyCube;
+    scale 3 0.1 3;
+    move 9 0 0;
+    rename "Cell28";
+    polyCube;
+    scale 3 0.1 3;
+    move -9 0 3;
+    rename "Cell29";
+    polyCube;
+    scale 3 0.1 3;
+    move -6 0 3;
+    rename "Cell30";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 3;
+    rename "Cell31";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 3;
+    rename "Cell32";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 3;
+    rename "Cell33";
+    polyCube;
+    scale 3 0.1 3;
+    move 6 0 3;
+    rename "Cell34";
+    polyCube;
+    scale 3 0.1 3;
+    move 9 0 3;
+    rename "Cell35";
+    polyCube;
+    scale 3 0.1 3;
+    move -9 0 6;
+    rename "Cell36";
+    polyCube;
+    scale 3 0.1 3;
+    move -6 0 6;
+    rename "Cell37";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 6;
+    rename "Cell38";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 6;
+    rename "Cell39";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 6;
+    rename "Cell40";
+    polyCube;
+    scale 3 0.1 3;
+    move 6 0 6;
+    rename "Cell41";
+    polyCube;
+    scale 3 0.1 3;
+    move 9 0 6;
+    rename "Cell42";
+    polyCube;
+    scale 3 0.1 3;
+    move -9 0 9;
+    rename "Cell43";
+    polyCube;
+    scale 3 0.1 3;
+    move -6 0 9;
+    rename "Cell44";
+    polyCube;
+    scale 3 0.1 3;
+    move -3 0 9;
+    rename "Cell45";
+    polyCube;
+    scale 3 0.1 3;
+    move 0 0 9;
+    rename "Cell46";
+    polyCube;
+    scale 3 0.1 3;
+    move 3 0 9;
+    rename "Cell47";
+    polyCube;
+    scale 3 0.1 3;
+    move 6 0 9;
+    rename "Cell48";
+    polyCube;
+    scale 3 0.1 3;
+    move 9 0 9;
+    rename "Cell49";
+    for ($x = 0; $x < 49; $x++)
+{
+    int $number = `rand 1 4`;
+    if ($number == 1) {
+    string $head[] = `polySphere`;
+    select $head;
+    move 0 5 0;
+    rename "Head";
+    string $torso[] = `polyCylinder`;
+    select $torso;
+    move 0 3 0;
+    scale 0.25 1 0.25;
+    rename "Torso";
+    string $left_arm[] = `polyCylinder`;
+    select $left_arm;
+    move -0.75 2.5 0;
+    rotate 0 0 -20;
+    scale 0.25 1 0.25;
+    rename "Left_Arm";
+    string $right_arm[] = `polyCylinder`;
+    select $right_arm;
+    move 0.75 2.5 0;
+    rotate 0 0 20;
+    scale 0.25 1 0.25;
+    rename "Right_Arm";
+    string $left_leg[] = `polyCylinder`;
+    select $left_leg;
+    move -0.5 1 0;
+    rotate 0 0 -20;
+    scale 0.25 1 0.25;
+    rename "Left_Leg";
+    string $right_leg[] = `polyCylinder`;
+    select $right_leg;
+    move 0.5 1 0;
+    rotate 0 0 20;
+    scale 0.25 1 0.25;
+    rename "Right_Leg";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0.95 0.95 0.75;
+    select Left_Arm Right_Arm Left_Leg Right_Leg Torso Head;
+    hyperShade -assign $shader;
+    parent;
+    select Head;
+    move 0 1 0;
+    scale 0.19 0.19 0.19;
+    select Left_Arm;
+    rename "L_A";
+    select Right_Arm;
+    rename "R_A";
+    select Left_Leg;
+    rename "L_L";
+    select Right_Leg;
+    rename "R_L";
+    select Torso;
+    rename "T";
+    select Head;
+    rename "H";
+    }
+    else if ($number == 2) {
+    string $base[] = `polyCube`;
+    select $base;
+    scale 10 15 10;
+    move 0 7.5 0;
+    rename "Base";
+    string $window1[] = `polyCube`;
+    select $window1;
+    scale 5 5 0.5;
+    move 0 10 5.3;
+    rename "Window1";
+    string $window2[] = `polyCube`;
+    select $window2;
+    scale 5 5 0.5;
+    move -5.3 10 0;
+    rotate 0 90 0;
+    rename "Window2";
+    string $window3[] = `polyCube`;
+    select $window3;
+    scale 5 5 0.5;
+    move 0 10 -5.3;
+    rename "Window3";
+    string $window4[] = `polyCube`;
+    select $window4;
+    scale 5 5 0.5;
+    move 5.3 10 0;
+    rotate 0 90 0;
+    rename "Window4";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 1 0.7 0.5;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 0 1 1;
+    select Base;
+    hyperShade -assign $shader;
+    select Window1 Window2 Window3 Window4;
+    hyperShade -assign $shader2;
+    select Window1 Window2 Window3 Window4 Base;
+    parent;
+    select Base;
+    move 0 1.1 0;
+    scale 2.5 4 2.5;
+    makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
+    select Window1;
+    rename "W_1";
+    select Window2;
+    rename "W_2";
+    select Window3;
+    rename "W_3";
+    select Window4;
+    rename "W_4";
+    select Base;
+    rename "House";
+    }
+    else if ($number == 3) {
+    string $top[] = `polySphere`;
+    select $top;
+    scale 3 3 3;
+    move 0 10 0;
+    rename "Top";
+    string $bottom[] = `polyCylinder`;
+    select $bottom;
+    scale 1 4 1;
+    move 0 4 0;
+    rename "Bottom";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0 1 0;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 0.1 0 0;
+    select Top;
+    hyperShade -assign $shader;
+    select Bottom;
+    hyperShade -assign $shader2;
+    select Bottom Top;
+    parent;
+    select Top;
+    move 0 2.4 0;
+    scale 1 1 1;
+    makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
+    select Bottom;
+    rename "Trunk";
+    select Top;
+    rename "Leaves";
+    }
+    if ($x == 0) {
+        move -9 1 -9;
+    }
+    else if ($x == 1) {
+        delete;
+    }
+    else if ($x == 2) {
+        move -3 1 -9;
+    }
+    else if ($x == 3) {
+        delete;
+    }
+    else if ($x == 4) {
+        move 3 1 -9;
+    }
+    else if ($x == 5) {
+        delete;
+    }
+    else if ($x == 6) {
+        move 9 1 -9;
+    }
+    else if ($x == 7) {
+        move -9 1 -6;
+    }
+    else if ($x == 8) {
+        delete;
+    }
+    else if ($x == 9) {
+        move -3 1 -6;
+    }
+    else if ($x == 10) {
+        delete;
+    }
+    else if ($x == 11) {
+        move 3 1 -6;
+    }
+    else if ($x == 12) {
+        delete;
+    }
+    else if ($x == 13) {
+        move 9 1 -6;
+    }
+    else if ($x == 14) {
+        move -9 1 -3;
+    }
+    else if ($x == 15) {
+        delete;
+    }
+    else if ($x == 16) {
+        move -3 1 -3;
+    }
+    else if ($x == 17) {
+        delete;
+    }
+    else if ($x == 18) {
+        move 3 1 -3;
+    }
+    else if ($x == 19) {
+        delete;
+    }
+    else if ($x == 20) {
+        move 9 1 -3;
+    }
+    else if ($x == 21) {
+        move -9 1 0;
+    }
+    else if ($x == 22) {
+        delete;
+    }
+    else if ($x == 23) {
+        move -3 1 0;
+    }
+    else if ($x == 24) {
+        delete;
+    }
+    else if ($x == 25) {
+        move 3 1 0;
+    }
+    else if ($x == 26) {
+        delete;
+    }
+    else if ($x == 27) {
+        move 9 1 0;
+    }
+    else if ($x == 28) {
+        move -9 1 3;
+    }
+    else if ($x == 29) {
+        delete;
+    }
+    else if ($x == 30) {
+        move -3 1 3;
+    }
+    else if ($x == 31) {
+        delete;
+    }
+    else if ($x == 32) {
+        move 3 1 3;
+    }
+    else if ($x == 33) {
+        delete;
+    }
+    else if ($x == 34) {
+        move 9 1 3;
+    }
+    else if ($x == 35) {
+        move -9 1 6;
+    }
+    else if ($x == 36) {
+        delete;
+    }
+    else if ($x == 37) {
+        move -3 1 6;
+    }
+    else if ($x == 38) {
+        delete;
+    }
+    else if ($x == 39) {
+        move 3 1 6;
+    }
+    else if ($x == 40) {
+        delete;
+    }
+    else if ($x == 41) {
+        move 9 1 6;
+    }
+    else if ($x == 42) {
+        move -9 1 9;
+    }
+    else if ($x == 43) {
+        delete;
+    }
+    else if ($x == 44) {
+        move -3 1 9;
+    }
+    else if ($x == 45) {
+        delete;
+    }
+    else if ($x == 46) {
+        move 3 1 9;
+    }
+    else if ($x == 47) {
+        delete;
+    }
+    else if ($x == 48) {
+        move 9 1 9;
+    }
+}
+    }
+
+//Define a procedure for "createRoad".
+global proc createRoad() {
+    string $bt[] = `polyCube`;
+    select $bt;
+    scale 3 0.1 3;
+    move 0 0.1 0;
+    rename "Black_Tile";
+    string $wt[] = `polyCube`;
+    select $wt;
+    scale 0.5 0.1 1;
+    move 0 0.2 0;
+    rename "White_Tile";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0 0 0;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 255 255 255;
+    select Black_Tile;
+    hyperShade -assign $shader;
+    select White_Tile;
+    hyperShade -assign $shader2;
+    select White_Tile Black_Tile;
+    parent;
+    select White_Tile;
+    rename "W_T";
+    select Black_Tile;
+    rename "B_T";
+    }
+
+//Define a procedure for "createStickman".
+global proc createStickman() {
+    string $head[] = `polySphere`;
+    select $head;
+    move 0 5 0;
+    rename "Head";
+    string $torso[] = `polyCylinder`;
+    select $torso;
+    move 0 3 0;
+    scale 0.25 1 0.25;
+    rename "Torso";
+    string $left_arm[] = `polyCylinder`;
+    select $left_arm;
+    move -0.75 2.5 0;
+    rotate 0 0 -20;
+    scale 0.25 1 0.25;
+    rename "Left_Arm";
+    string $right_arm[] = `polyCylinder`;
+    select $right_arm;
+    move 0.75 2.5 0;
+    rotate 0 0 20;
+    scale 0.25 1 0.25;
+    rename "Right_Arm";
+    string $left_leg[] = `polyCylinder`;
+    select $left_leg;
+    move -0.5 1 0;
+    rotate 0 0 -20;
+    scale 0.25 1 0.25;
+    rename "Left_Leg";
+    string $right_leg[] = `polyCylinder`;
+    select $right_leg;
+    move 0.5 1 0;
+    rotate 0 0 20;
+    scale 0.25 1 0.25;
+    rename "Right_Leg";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0.95 0.95 0.75;
+    select Left_Arm Right_Arm Left_Leg Right_Leg Torso Head;
+    hyperShade -assign $shader;
+    parent;
+    select Head;
+    move 0 1 0;
+    scale 0.19 0.19 0.19;
+    select Left_Arm;
+    rename "L_A";
+    select Right_Arm;
+    rename "R_A";
+    select Left_Leg;
+    rename "L_L";
+    select Right_Leg;
+    rename "R_L";
+    select Torso;
+    rename "T";
+    select Head;
+    rename "H";
+    }
+
+//Define a procedure for "createHouse".
+global proc createHouse() {
+    string $base[] = `polyCube`;
+    select $base;
+    scale 10 15 10;
+    move 0 7.5 0;
+    rename "Base";
+    string $window1[] = `polyCube`;
+    select $window1;
+    scale 5 5 0.5;
+    move 0 10 5.3;
+    rename "Window1";
+    string $window2[] = `polyCube`;
+    select $window2;
+    scale 5 5 0.5;
+    move -5.3 10 0;
+    rotate 0 90 0;
+    rename "Window2";
+    string $window3[] = `polyCube`;
+    select $window3;
+    scale 5 5 0.5;
+    move 0 10 -5.3;
+    rename "Window3";
+    string $window4[] = `polyCube`;
+    select $window4;
+    scale 5 5 0.5;
+    move 5.3 10 0;
+    rotate 0 90 0;
+    rename "Window4";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 1 0.7 0.5;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 0 1 1;
+    select Base;
+    hyperShade -assign $shader;
+    select Window1 Window2 Window3 Window4;
+    hyperShade -assign $shader2;
+    select Window1 Window2 Window3 Window4 Base;
+    parent;
+    select Base;
+    move 0 2.1 0;
+    scale 2.5 4 2.5;
+    makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
+    select Window1;
+    rename "W_1";
+    select Window2;
+    rename "W_2";
+    select Window3;
+    rename "W_3";
+    select Window4;
+    rename "W_4";
+    select Base;
+    rename "House";
+    }
+
+//Define a procedure for "createTree".
+global proc createTree() {
+    string $top[] = `polySphere`;
+    select $top;
+    scale 3 3 3;
+    move 0 10 0;
+    rename "Top";
+    string $bottom[] = `polyCylinder`;
+    select $bottom;
+    scale 1 4 1;
+    move 0 4 0;
+    rename "Bottom";
+    string $shader = `shadingNode -asShader lambert`;
+    string $shadingGrp = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader + ".outColor") ($shadingGrp + ".surfaceShader");
+    setAttr ($shader + ".color") 0 1 0;
+    string $shader2 = `shadingNode -asShader lambert`;
+    string $shadingGrp2 = `sets -renderable true -noSurfaceShader true -empty`;
+    connectAttr ($shader2 + ".outColor") ($shadingGrp2 + ".surfaceShader");
+    setAttr ($shader2 + ".color") 0.1 0 0;
+    select Top;
+    hyperShade -assign $shader;
+    select Bottom;
+    hyperShade -assign $shader2;
+    select Bottom Top;
+    parent;
+    select Top;
+    move 0 3.4 0;
+    scale 1 1 1;
+    makeIdentity -apply true -t 1 -r 1 -s 1 -n 0;
+    select Bottom;
+    rename "Trunk";
+    select Top;
+    rename "Leaves";
+    }
+
+//Build the window
+window -title "City Generator" -widthHeight 200 100 cityGenerator;
+columnLayout -adjustableColumn true -rowSpacing 20;
+    text -label "Please select an environment below!";
+    separator -height 10 -style "none";
+    text -label "Create a small street!";
+    button -label "Create Street" -command "createStreet()" -bgc 0 255 0; //Green button for a street.
+    separator -height 10 -style "none";
+    text -label "Create a medium town!";
+    button -label "Create Town" -command "createTown()" -bgc 255 165 0; //Yellow button for a town.
+    separator -height 10 -style "none";
+    text -label "Create a large city!";
+    button -label "Create City" -command "createCity()" -bgc 255 0 0; //Red button for a city.
+    separator -height 10 -style "none";
+    text -label "Create individual assets!";
+    button -label "Create Road" -command "createRoad()" -bgc 0.530 0.810 0.920; //Blue buttons for individual assets.
+    button -label "Create Stickman" -command "createStickman()" -bgc 0.530 0.810 0.920;
+    button -label "Create House" -command "createHouse()" -bgc 0.530 0.810 0.920;
+    button -label "Create Tree" -command "createTree()" -bgc 0.530 0.810 0.920;
+setParent ..;
+
+//Show the window
+showWindow cityGenerator;
